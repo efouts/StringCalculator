@@ -40,6 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DivisionExpression.cs" />
+    <Compile Include="E.cs" />
+    <Compile Include="ExpressionFactory.cs" />
     <Compile Include="MultiplicationExpression.cs" />
     <Compile Include="AdditionExpression.cs" />
     <Compile Include="Expression.cs" />

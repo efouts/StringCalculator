@@ -26,63 +26,62 @@ namespace StringCalculator
             {
                 operatorFound |= IsOperator(function[i]);
 
-                if (IsANumber(function[i]) && operatorFound && IsMultiplicationOrDivision(function[i + 1]))
+                if (ShouldEvaluateMultiplicativeExpression(function, operatorFound, i))
                 {
-                    var startOfSubstring = i;
-                    while (startOfSubstring >= 0 && (!IsOperator(function[startOfSubstring]) ||
-                        IsMultiplicationOrDivision(function[startOfSubstring]) ||
-                        (startOfSubstring > 0 && !IsANumber(function[startOfSubstring - 1]) && IsOperator(function[startOfSubstring]))))
+                    var multiplicativeExpressionIndex = i;
+                    while (InMultiplicativeExpression(function, multiplicativeExpressionIndex))
+                        multiplicativeExpressionIndex--;
+
+                    if (multiplicativeExpressionIndex > 0)
                     {
-                        startOfSubstring--;
-                    }
+                        var multiplicativeExpression = GetExpression(function.Substring(multiplicativeExpressionIndex + 1));
 
-                    var multDivSubstring = startOfSubstring == 0 ? function.Substring(startOfSubstring) : function.Substring(startOfSubstring + 1);
+                        var nonMultiplicativeFunction = function.Substring(0, multiplicativeExpressionIndex);
+                        var left = GetExpression(nonMultiplicativeFunction);
+                        var right = new Expression() { Value = multiplicativeExpression.Evaluate() };
+                        var nonMultiplicativeOperator = function[multiplicativeExpressionIndex];
+                        var nonMultiplicativeExpression = ExpressionFactory.Get(nonMultiplicativeOperator, left, right);
 
-                    if (function != multDivSubstring)
-                    {
-                        var expression = GetExpression(multDivSubstring);
-                        var result = expression.Evaluate();
-
-                        if (startOfSubstring == 0)
-                            return new Expression() { Value = result };
-
-                        var remainingFunction = function.Substring(0, startOfSubstring);
-                        var left = GetExpression(remainingFunction);
-                        var right = new Expression() { Value = result };
-
-                        switch (function[startOfSubstring])
-                        {
-                            case '-': return new SubtractionExpression(left, right);
-                            case '+':
-                            default: return new AdditionExpression(left, right);
-                        }
+                        return nonMultiplicativeExpression;
                     }
                 }
 
-                if (IsANumber(function[i]) && operatorFound)
+                if (CanBuildExpression(function, operatorFound, i))
                     return BuildExpression(function, i);
             }
 
             return new Expression() { Value = Convert.ToDouble(function) };
         }
 
+        private Boolean CanBuildExpression(String function, Boolean operatorFound, Int32 functionIndex)
+        {
+            return IsANumber(function[functionIndex]) && operatorFound;
+        }
+
+        private Boolean ShouldEvaluateMultiplicativeExpression(String function, Boolean operatorFound, Int32 functionIndex)
+        {
+            return CanBuildExpression(function, operatorFound, functionIndex) && IsMultiplicative(function[functionIndex + 1]);
+        }
+
+        private Boolean InMultiplicativeExpression(String function, Int32 multiplicativeExpressionIndex)
+        {
+            var startsWithNegativeNumber = multiplicativeExpressionIndex > 0 && !IsANumber(function[multiplicativeExpressionIndex - 1]) && IsOperator(function[multiplicativeExpressionIndex]);
+
+            return multiplicativeExpressionIndex >= 0 && (!IsOperator(function[multiplicativeExpressionIndex])
+                                             || IsMultiplicative(function[multiplicativeExpressionIndex])
+                                             || startsWithNegativeNumber);
+        }
+
         private Expression BuildExpression(String function, Int32 i)
         {
             var number = function.Substring(i + 2);
             var left = GetExpression(function.Substring(0, i + 1));
-            var right = new Expression() { Value = Convert.ToDouble(number) };            
+            var right = new Expression() { Value = Convert.ToDouble(number) };
 
-            switch (function[i + 1])
-            {
-                case '/': return new DivisionExpression(left, right);
-                case '*': return new MultiplicationExpression(left, right);
-                case '-': return new SubtractionExpression(left, right);
-                case '+':
-                default: return new AdditionExpression(left, right); 
-            }
+            return ExpressionFactory.Get(function[i + 1], left, right);
         }
 
-        private Boolean IsMultiplicationOrDivision(Char character)
+        private Boolean IsMultiplicative(Char character)
         {
             return character == '*' || character == '/';
         }
