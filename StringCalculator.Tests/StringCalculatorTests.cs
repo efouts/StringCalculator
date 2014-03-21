@@ -39,6 +39,11 @@ namespace StringCalculator.Tests
         [TestCase("1-2/2-5", -5)]
         [TestCase("1-2/.25-5", -12)]
         [TestCase("1-2/.25-5*2", -17)]
+        [TestCase("-1-2/-.25-5*2", -3)]
+        [TestCase("-1*2/-.25", 8)]
+        [TestCase("-1*-2/-.25", -8)]
+        [TestCase("-1.25*-2.00000/-0.25", -10)]
+        [TestCase("-1.25*-2.00000/-0.25*23847-2389+389+238/7", -240436)]
         public void CalculateWorks(String expression, Double expectedValue)
         {
             Assert.That(calculator.Calculate(expression), Is.EqualTo(expectedValue));

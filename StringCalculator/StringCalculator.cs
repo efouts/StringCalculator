@@ -29,10 +29,14 @@ namespace StringCalculator
                 if (IsANumber(function[i]) && operatorFound && IsMultiplicationOrDivision(function[i + 1]))
                 {
                     var startOfSubstring = i;
-                    while (startOfSubstring >= 0 && (!IsOperator(function[startOfSubstring]) || IsMultiplicationOrDivision(function[startOfSubstring])))
+                    while (startOfSubstring >= 0 && (!IsOperator(function[startOfSubstring]) ||
+                        IsMultiplicationOrDivision(function[startOfSubstring]) ||
+                        (startOfSubstring > 0 && !IsANumber(function[startOfSubstring - 1]) && IsOperator(function[startOfSubstring]))))
+                    {
                         startOfSubstring--;
+                    }
 
-                    var multDivSubstring = function.Substring(startOfSubstring + 1);
+                    var multDivSubstring = startOfSubstring == 0 ? function.Substring(startOfSubstring) : function.Substring(startOfSubstring + 1);
 
                     if (function != multDivSubstring)
                     {
