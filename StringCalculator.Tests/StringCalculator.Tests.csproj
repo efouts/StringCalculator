@@ -69,7 +69,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ModulusExpressionTests.cs" />
     <Compile Include="DivisionExpressionTests.cs" />
+    <Compile Include="ExponentialExpressionTests.cs" />
     <Compile Include="MultiplicationExpressionTests.cs" />
     <Compile Include="SubtractionExpressionTests.cs" />
     <Compile Include="AdditionExpressionTests.cs" />

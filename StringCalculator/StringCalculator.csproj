@@ -39,8 +39,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ModulusExpression.cs" />
     <Compile Include="DivisionExpression.cs" />
     <Compile Include="ExpressionFactory.cs" />
+    <Compile Include="ExponentialExpression.cs" />
     <Compile Include="MultiplicationExpression.cs" />
     <Compile Include="AdditionExpression.cs" />
     <Compile Include="Expression.cs" />

@@ -12,6 +12,8 @@ namespace StringCalculator
         {
             switch (@operator)
             {
+                case '^': return new ExponentialExpression(left, right);
+                case '%': return new ModulusExpression(left, right);
                 case '/': return new DivisionExpression(left, right);
                 case '*': return new MultiplicationExpression(left, right);
                 case '-': return new SubtractionExpression(left, right);
