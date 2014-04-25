@@ -17,8 +17,8 @@ namespace StringCalculator
                 case '/': return new DivisionExpression(left, right);
                 case '*': return new MultiplicationExpression(left, right);
                 case '-': return new SubtractionExpression(left, right);
-                case '+':
-                default: return new AdditionExpression(left, right);
+                case '+': return new AdditionExpression(left, right);
+                default: throw new ArgumentOutOfRangeException("@operator");
             }
         }
     }
