@@ -39,6 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dice.cs" />
+    <Compile Include="DiceExpression.cs" />
+    <Compile Include="IDice.cs" />
     <Compile Include="ModulusExpression.cs" />
     <Compile Include="DivisionExpression.cs" />
     <Compile Include="ExpressionFactory.cs" />

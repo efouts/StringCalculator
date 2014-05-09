@@ -8,10 +8,18 @@ namespace StringCalculator
 {
     public class ExpressionFactory
     {
-        public static Expression Get(Char @operator, Expression left, Expression right)
+        private IDice dice;
+
+        public ExpressionFactory(IDice dice)
+        {
+            this.dice = dice;
+        }
+
+        public Expression Get(Char @operator, Expression left, Expression right)
         {
             switch (@operator)
             {
+                case 'd': return new DiceExpression(left, right, dice);
                 case '^': return new ExponentialExpression(left, right);
                 case '%': return new ModulusExpression(left, right);
                 case '/': return new DivisionExpression(left, right);

@@ -11,7 +11,10 @@ namespace StringCalculator.Tests
 
         public StringCalculatorTests()
         {
-            calculator = new StringCalculator();
+            var loadedDice = new LoadedDice();
+            loadedDice.SetNextRolls(new[] { 4, 4, 4, 4, 4, 4, 4, 4 });
+            var expressionFactory = new ExpressionFactory(loadedDice);
+            calculator = new StringCalculator(expressionFactory);
         }
 
         [TestCase("1", 1)]
@@ -55,7 +58,9 @@ namespace StringCalculator.Tests
         [TestCase("144/2/6/3", 4)]
         [TestCase("3^4", 81)]
         [TestCase("2^2^4", 256)]
-        [TestCase("1+1^2^4", 2)]
+        [TestCase("1+1d6", 5)]
+        [TestCase("1+1d6+1", 6)]
+        [TestCase("1+4d6+1", 18)] 
         public void CalculateWorks(String expression, Double expectedValue)
         {
             Assert.That(calculator.Calculate(expression), Is.EqualTo(expectedValue));

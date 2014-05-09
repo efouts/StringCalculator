@@ -9,9 +9,16 @@ namespace StringCalculator
 {
     public class StringCalculator
     {
-        private String allOperators = "+-*/%^";
+        private String allOperators = "+-*/%^d";
+        private ExpressionFactory expressionFactory;
+
+        public StringCalculator(ExpressionFactory expressionFactory)
+        {
+            this.expressionFactory = expressionFactory;
+        }
 
         private Char[][] orderOfOperations = new[] {
+            new[] { 'd' },
             new[] { '^' },
             new[] { '*', '/', '%' }
         };
@@ -44,7 +51,7 @@ namespace StringCalculator
 
                             var left = GetExpression(function.Substring(0, expressionIndex));
                             var right = new Expression() { Value = expression.Evaluate() };
-                            return ExpressionFactory.Get(function[expressionIndex], left, right);
+                            return expressionFactory.Get(function[expressionIndex], left, right);
                         }
                     }
                 }
@@ -55,7 +62,7 @@ namespace StringCalculator
 
                     var left = GetExpression(function.Substring(0, i + 1));
                     var right = new Expression() { Value = Convert.ToDouble(number) };
-                    return ExpressionFactory.Get(function[i + 1], left, right);
+                    return expressionFactory.Get(function[i + 1], left, right);
                 }
             }
 

@@ -69,6 +69,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="DiceExpressionTests.cs" />
+    <Compile Include="LoadedDice.cs" />
     <Compile Include="ModulusExpressionTests.cs" />
     <Compile Include="DivisionExpressionTests.cs" />
     <Compile Include="ExponentialExpressionTests.cs" />
