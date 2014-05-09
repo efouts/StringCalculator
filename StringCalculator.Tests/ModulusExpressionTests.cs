@@ -13,8 +13,8 @@ namespace StringCalculator.Tests
         [TestMethod]
         public void EvaluateWithTwoNormalOperands()
         {
-            var left = new Expression { Value = 1 };
-            var right = new Expression { Value = 2 };
+            var left = new ConstantExpression(1);
+            var right = new ConstantExpression(2);
 
             var expression = new ModulusExpression(left, right);
             Assert.AreEqual(1, expression.Evaluate());
@@ -23,9 +23,9 @@ namespace StringCalculator.Tests
         [TestMethod]
         public void EvaluateWithOneModulusExpression()
         {
-            var left = new Expression { Value = 1 };
-            var leftTwo = new Expression { Value = 2 };
-            var rightTwo = new Expression { Value = 4 };
+            var left = new ConstantExpression(1);
+            var leftTwo = new ConstantExpression(2);
+            var rightTwo = new ConstantExpression(4);
             var right = new ModulusExpression(leftTwo, rightTwo);
 
             var expression = new ModulusExpression(left, right);
@@ -35,10 +35,10 @@ namespace StringCalculator.Tests
         [TestMethod]
         public void EvaluateWithTwoModulusExpressions()
         {
-            var leftOne = new Expression { Value = 1 };
-            var rightOne = new Expression { Value = 2 };
-            var leftTwo = new Expression { Value = 6 };
-            var rightTwo = new Expression { Value = 4 };
+            var leftOne = new ConstantExpression(1);
+            var rightOne = new ConstantExpression(2);
+            var leftTwo = new ConstantExpression(6);
+            var rightTwo = new ConstantExpression(4);
             var left = new ModulusExpression(leftOne, rightOne);
             var right = new ModulusExpression(leftTwo, rightTwo);
 

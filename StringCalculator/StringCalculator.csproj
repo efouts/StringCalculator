@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConstantExpression.cs" />
     <Compile Include="Dice.cs" />
     <Compile Include="DiceExpression.cs" />
     <Compile Include="IDice.cs" />

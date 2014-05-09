@@ -22,8 +22,8 @@ namespace StringCalculator.Tests
         [Test]
         public void OneSidedDie()
         {
-            var leftExpression = new Expression { Value = 1 };
-            var rightExpression = new Expression { Value = 1 };
+            var leftExpression = new ConstantExpression(1);
+            var rightExpression = new ConstantExpression(1);
 
             var expression = new DiceExpression(leftExpression, rightExpression, dice);
             Assert.AreEqual(1, expression.Evaluate());
@@ -32,8 +32,8 @@ namespace StringCalculator.Tests
         [Test]
         public void SixSidedDice()
         {
-            var leftExpression = new Expression { Value = 2 };
-            var rightExpression = new Expression { Value = 6 };
+            var leftExpression = new ConstantExpression(2);
+            var rightExpression = new ConstantExpression(6);
 
             var expression = new DiceExpression(leftExpression, rightExpression, dice);
             Assert.That(expression.Evaluate(), Is.GreaterThanOrEqualTo(2));
@@ -43,8 +43,8 @@ namespace StringCalculator.Tests
         [Test]
         public void OperandsGetTruncated()
         {
-            var leftExpression = new Expression { Value = 2.9 };
-            var rightExpression = new Expression { Value = 6.9 };
+            var leftExpression = new ConstantExpression(2.9);
+            var rightExpression = new ConstantExpression(6.9);
 
             var expression = new DiceExpression(leftExpression, rightExpression, dice);
             Assert.That(expression.Evaluate(), Is.GreaterThanOrEqualTo(2));

@@ -13,8 +13,8 @@ namespace StringCalculator.Tests
         [TestMethod]
         public void EvaluateWithTwoNormalOperands()
         {
-            var left = new Expression { Value = 1 };
-            var right = new Expression { Value = 2 };
+            var left = new ConstantExpression(1);
+            var right = new ConstantExpression(2);
 
             var expression = new DivisionExpression(left, right);
             Assert.AreEqual(0.5, expression.Evaluate());
@@ -23,9 +23,9 @@ namespace StringCalculator.Tests
         [TestMethod]
         public void EvaluateWithOneMultiplicationExpression()
         {
-            var left = new Expression { Value = 1 };
-            var leftTwo = new Expression { Value = 2 };
-            var rightTwo = new Expression { Value = 4 };
+            var left = new ConstantExpression(1);
+            var leftTwo = new ConstantExpression(2);
+            var rightTwo = new ConstantExpression(4);
             var right = new DivisionExpression(leftTwo, rightTwo);
 
             var expression = new DivisionExpression(left, right);
@@ -35,10 +35,10 @@ namespace StringCalculator.Tests
         [TestMethod]
         public void EvaluateWithTwoMultiplicationExpressions()
         {
-            var leftOne = new Expression { Value = 1 };
-            var rightOne = new Expression { Value = 2 };
-            var leftTwo = new Expression { Value = 6 };
-            var rightTwo = new Expression { Value = 3 };
+            var leftOne = new ConstantExpression(1);
+            var rightOne = new ConstantExpression(2);
+            var leftTwo = new ConstantExpression(6);
+            var rightTwo = new ConstantExpression(3);
             var left = new DivisionExpression(leftOne, rightOne);
             var right = new DivisionExpression(leftTwo, rightTwo);
 

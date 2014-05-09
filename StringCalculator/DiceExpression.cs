@@ -19,7 +19,7 @@ namespace StringCalculator
             this.dice = dice;
         }
 
-        public override Double Evaluate()
+        public Double Evaluate()
         {
             dice.Roll((Int32)left.Evaluate(), (Int32)right.Evaluate());
             return dice.Value;

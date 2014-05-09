@@ -50,7 +50,7 @@ namespace StringCalculator
                             var expression = GetExpression(function.Substring(expressionIndex + 1));
 
                             var left = GetExpression(function.Substring(0, expressionIndex));
-                            var right = new Expression() { Value = expression.Evaluate() };
+                            var right = new ConstantExpression(expression.Evaluate());
                             return expressionFactory.Get(function[expressionIndex], left, right);
                         }
                     }
@@ -61,12 +61,12 @@ namespace StringCalculator
                     var number = function.Substring(i + 2);
 
                     var left = GetExpression(function.Substring(0, i + 1));
-                    var right = new Expression() { Value = Convert.ToDouble(number) };
+                    var right = new ConstantExpression(Convert.ToDouble(number));
                     return expressionFactory.Get(function[i + 1], left, right);
                 }
             }
 
-            return new Expression() { Value = Convert.ToDouble(function) };
+            return new ConstantExpression(Convert.ToDouble(function));
         }
 
         private Boolean CanBuildExpression(String function, Boolean operatorFound, Int32 functionIndex)

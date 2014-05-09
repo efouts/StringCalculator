@@ -17,7 +17,7 @@ namespace StringCalculator
             this.right = right;
         }
 
-        public override Double Evaluate()
+        public Double Evaluate()
         {
             return left.Evaluate() - right.Evaluate();
         }

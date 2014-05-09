@@ -16,8 +16,8 @@ namespace StringCalculator.Tests
         [TestCase(2, 3, 8)]
         public void CalculateWorks(Double left, Double right, Double expectedValue)
         {
-            var leftExpression = new Expression { Value = left };
-            var rightExpression = new Expression { Value = right };
+            var leftExpression = new ConstantExpression(left);
+            var rightExpression = new ConstantExpression(right);
 
             var expression = new ExponentialExpression(leftExpression, rightExpression);
             Assert.AreEqual(expectedValue, expression.Evaluate());
