@@ -42,15 +42,14 @@ namespace StringCalculator
                     if (ShouldEvaluateExpression(function, operatorFound, i, operators))
                     {
                         var expressionIndex = i;
+
                         while (SameOrderExpression(function, expressionIndex, operators))
                             expressionIndex--;
 
                         if (expressionIndex > 0)
                         {
-                            var expression = GetExpression(function.Substring(expressionIndex + 1));
-
                             var left = GetExpression(function.Substring(0, expressionIndex));
-                            var right = new ConstantExpression(expression.Evaluate());
+                            var right = GetExpression(function.Substring(expressionIndex + 1));
                             return expressionFactory.Get(function[expressionIndex], left, right);
                         }
                     }
@@ -58,10 +57,8 @@ namespace StringCalculator
 
                 if (CanBuildExpression(function, operatorFound, i))
                 {
-                    var number = function.Substring(i + 2);
-
                     var left = GetExpression(function.Substring(0, i + 1));
-                    var right = new ConstantExpression(Convert.ToDouble(number));
+                    var right = new ConstantExpression(Convert.ToDouble(function.Substring(i + 2)));
                     return expressionFactory.Get(function[i + 1], left, right);
                 }
             }
